@@ -13,52 +13,71 @@
 """
 
 class Node :
-    def __init__(self, value = None, next = None, prev = None) :
+    def __init__(self, value = None, nexts = None, prev = None) :
         self.value = value
-        if next == None :
-            self.next = None
-        else :
-            self.next = next
-        self.prev = prev
+        self.nextNode = nexts
+        self.prevNode  = prev
 
-    def __str__(self) :
-        return str(self.value)
-    
-class LinkList :
-    def __init__(self) :
-        self.head = None
+class LinkedList :
+    def __init__(self, head = None) :
+        if head == None :
+            self.head = None
+        else :
+            self.head = Node(head)
         self.size = 0
 
     def appendHead(self, value) :
-        node = Node(value)
+        new_node = Node(value)
         if self.head != None :
-            self.head = node
-            self.head.next = self.head
-            self.head.prev = self.head
+            new_node.nextNode = self.head
+            self.head.prevNode = new_node
+            self.head = new_node
         else :
-            tail = self.head.prev
-            node.next = self.head
-            node.prev = tail
-            self.head.prev = node
-            tail.next = node
-            self.head = node
-        self.size += 1
+            self.head = new_node
 
     def appendLast(self, value) :
+        new_node = Node(value)
         if self.head == None :
             self.appendHead(value)
             return
-        tail = self.head.prev
-        node = Node(value, self.head, tail)
-        tail.next = node
-        self.head.prev = node
-        self.size += 1
+        curr = self.head
+        while curr.nextNode != None :
+            curr = curr.nextNode
+        curr.nextNode = new_node
+        curr.nextNode.prevNode = curr
+
+    def sortList(self) :
+        if self.head == None :
+            return
+        swapped = True
+        while swapped != False :
+            swapped = False
+            curr = self.head
+            while curr.nextNode != None :
+                if curr.value > curr.nextNode.value :
+                    curr.value, curr.nextNode.value = curr.nextNode.value, curr.value
+                    swapped = True
+                curr = curr.nextNode
+
+    def printList(self) :
+        curr = self.head
+        while curr is not None :
+            if curr.nextNode != None :
+                print(curr.value, end=' -> ')
+            else :
+                print(curr.value)
+            curr = curr.nextNode
 
 def convertToLinkedList(lst) :
-    linkList = LinkList()
+    linkList = LinkedList()
     for element in lst :
         linkList.appendLast(element)
     return linkList
 
 inp = input("Enter unsorted Linked List: ").split(' ')
-print(inp)
+newLinkedList = convertToLinkedList(inp)
+print("Before: ", end='')
+newLinkedList.printList()
+newLinkedList.sortList()
+print("After : ", end='')
+newLinkedList.printList()
