@@ -124,8 +124,6 @@ def riffle(head, r) :
     if r == 0 or head.head == None :
         return head
 
-    # Split the list into two halves
-    count = 0
     firstHead = head.head
     secondHead = head.head
 
@@ -136,7 +134,6 @@ def riffle(head, r) :
     firstHeadCurr = firstHead
     secondHeadCurr = secondHead
 
-    # Detach the second half
     temp = firstHead
     for i in range(r - 1) :
         temp = temp.nextNode
@@ -169,51 +166,6 @@ def riffle(head, r) :
 
     return head
 
-# def deriffle(head, r) :
-#     r = int(r)
-#     if r == 0 or head.head is None:
-#         return head
-
-#     firstHead = head.head
-#     secondHead = firstHead.nextNode
-
-#     firstHeadList = []
-#     secondHeadList = []
-
-#     current = head.head
-#     index = 0
-#     while current is not None:
-#         if index % 2 == 0:
-#             firstHeadList.append(current)
-#         else:
-#             secondHeadList.append(current)
-#         current = current.nextNode
-#         index += 1
-
-#     dummy = Node()
-#     tail = dummy
-
-#     for node in firstHeadList:
-#         tail.nextNode = node
-#         tail = tail.nextNode
-#     tail.nextNode = None
-
-#     second_head = None
-#     for node in reversed(secondHeadList):
-#         node.nextNode = second_head
-#         second_head = node
-
-#     tail.nextNode = second_head
-
-#     head.head = dummy.nextNode
-#     return head
-
-# def debottomUp(head, r) :
-#     size = SIZE(head)
-#     split_point = size - r
-#     return bottomUp(head, split_point)
-
-
 def scramble(head, b, r, size) :
     bottom_up_per = (b * size) // 100
     riffle_per = (r * size) // 100
@@ -231,12 +183,9 @@ def scramble(head, b, r, size) :
 
     head = head
     print(f"Deriffle{r: .3f} % : ", end='')
-    # deriffleHead = deriffle(riffleHead, riffle_per)
-    # deriffleHead = bottomUp(head, bottom_up_per)
     print(x)
 
-    print(f"DebottomUp{b: .3f} % : ", end='')
-    # debottomHead = debottomUp(deriffleHead, bottom_up_per)
+    print(f"Debottomup{b: .3f} % : ", end='')
     print(start)
 
 inp1, inp2 = input('Enter Input : ').split('/')
