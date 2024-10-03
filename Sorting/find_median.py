@@ -81,7 +81,7 @@ def sort_list(lst) :
 
 def find_median(lst) :
     n = len(lst)
-    if (n + 1) % 2 == 0 :
+    if (n) % 2 == 1 :
         med = n // 2
         return lst[med]
     else :
